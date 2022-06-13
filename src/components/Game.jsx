@@ -52,9 +52,10 @@ const Game = () => {
     };
   }, [status]);
   if (audio) {
-    console.log(audio.baseURI + bgm);
-    console.log(audio.src);
-    if (audio.src === audio.baseURI + bgm) {
+    if (
+      audio.src ===
+      audio.baseURI.subString(0, audio.baseURI.length() - 1) + bgm
+    ) {
       console.log("triggered");
       audio.loop = true;
     }
