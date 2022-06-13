@@ -2,6 +2,7 @@ import React from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import connectButton from "../images/ui/connect.png";
+import emptyButton from "../images/ui/emptyButton.png";
 
 const ConnectWalletButton = () => {
   return (
@@ -32,20 +33,24 @@ const ConnectWalletButton = () => {
                     <img
                       src={connectButton}
                       alt=""
-                      className="w-[120px] md:w-[150px]"
+                      className="w-[130px] md:w-[150px]"
                     />
                   </button>
                 );
               }
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button">
+                  <button
+                    onClick={openChainModal}
+                    type="button"
+                    className="text-xl bg-[url('./images/ui/emptyButton.png')] bg-no-repeat bg-[length:100%_100%] w-[130px] md:w-[150px] h-[60px] md:h-[80px]"
+                  >
                     Wrong network
                   </button>
                 );
               }
               return (
-                <div style={{ display: "flex", gap: 12 }}>
+                <div className="space-x-3 flex items-center justify-center p-6 text-xl bg-[url('./images/ui/emptyButton.png')] bg-no-repeat bg-[length:100%_100%] h-[60px] md:h-[80px]">
                   <button
                     onClick={openChainModal}
                     style={{ display: "flex", alignItems: "center" }}

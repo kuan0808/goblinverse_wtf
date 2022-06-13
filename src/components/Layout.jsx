@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
           />
         </a>
       </div>
-      <div className="fixed top-[20px] right-[20px] flex flex-col items-end justify-start">
+      <div className="fixed top-[10px] right-[10px] md:top-5 md:right-5 flex flex-col items-end justify-start">
         <ConnectWalletButton />
         {page === "mint" && (
           <button>
@@ -53,7 +53,7 @@ const Layout = ({ children }) => {
             <img
               src={mintButton}
               alt=""
-              className="w-[120px] md:w-[150px]"
+              className="w-[130px] md:w-[150px]"
               onClick={() => setPage("mint")}
             />
           </button>
