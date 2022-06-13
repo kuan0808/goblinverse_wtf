@@ -13,15 +13,19 @@ import soldOut from "../images/ui/soldOut.png";
 
 import {
   gameStatusHistoryState,
-  playerEastereggState,
+  playerEastereggHistoryState,
 } from "../atoms/gameState";
 
 const Mint = () => {
   const statusHistory = useRecoilValue(gameStatusHistoryState);
-  const easteregg = useRecoilValue(playerEastereggState);
+  const eastereggHistory = useRecoilValue(playerEastereggHistoryState);
   const [count, setCount] = useState(1);
 
   const hasPassed = statusHistory.includes("victory");
+  const hasEasterEgg = eastereggHistory.reduce((acc, cur, index) => {
+    const victoryAndEasteregg = cur && statusHistory[index] === "victory";
+    return acc || victoryAndEasteregg;
+  }, false);
 
   const handleAdd = () => setCount((prev) => prev + 1);
   const handleSubstract = () => setCount((prev) => prev - 1);
@@ -41,12 +45,14 @@ const Mint = () => {
           <img src={minus} alt="" className="w-[80px]" />
         </button>
         <div className="relative">
-          {count > 0 && easteregg && (
+          {count > 0 && hasEasterEgg && (
             <div className="absolute -top-[50px] -right-[50px]">
               <img src={catIcon} alt="" className="w-[80px]" />
             </div>
           )}
-          {!hasPassed && <img src={winToMint} alt="" className="w-[120px]" />}
+          {!hasPassed && (
+            <img src={winToMint} alt="" className="w-[120px] md:w-[180px]" />
+          )}
           {hasPassed && count === 1 && (
             <img src={one} alt="" className="w-[80px]" />
           )}

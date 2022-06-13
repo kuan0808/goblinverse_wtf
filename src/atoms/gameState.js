@@ -4,7 +4,10 @@ export const gameStatusHistoryState = atom({
   key: "gameStatusHistoryState",
   default: [],
 });
-
+export const playerEastereggHistoryState = atom({
+  key: "playerEastereggHistoryState",
+  default: [],
+});
 export const gameStatusState = atom({
   key: "gameStatusState",
   default: null,

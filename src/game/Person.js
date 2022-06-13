@@ -56,7 +56,9 @@ export default class Person extends GameObject {
   handleAction(action) {
     if (
       !this.action ||
-      (this.action && !this.action === "lieDown" && action === "lieDown")
+      (this.action &&
+        // !this.action === "hurt" &&
+        (action === "hurt" || action === "lieDown"))
     )
       this.action = action;
     return;
@@ -189,11 +191,6 @@ export default class Person extends GameObject {
         !player.obj.recoveryProgressRemaining
       ) {
         player.obj.handleAction("hurt");
-
-        if (player.obj.hp === 1) {
-          player.obj.handleAction("lieDown");
-        }
-        // player.obj.hp -= 1;
       }
       // set the attack animation lasting time
       this.actionProgressRemaining = 60;
@@ -203,7 +200,8 @@ export default class Person extends GameObject {
     if (behavior.type === "hurt") {
       this.hp -= 1;
       // TODO: make the character speed up when hurt
-
+      this.hp === 0 && this.handleAction("lieDown");
+      console.log(this.action);
       this.actionProgressRemaining = 8;
     }
     if (behavior.type === "lieDown") {

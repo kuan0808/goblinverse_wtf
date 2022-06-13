@@ -191,7 +191,7 @@ export default class OverworldMap {
     if (goal.x.indexOf(pos.x) > -1 && goal.y.indexOf(pos.y) > -1) {
       this.overworld.gameStatus = "victory";
     }
-    if (goblin.hp === 0 && goblin.actionProgressRemaining === 0) {
+    if (goblin.hp === 0) {
       this.overworld.gameStatus = "lose";
     }
   }
