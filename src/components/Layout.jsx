@@ -6,6 +6,11 @@ import twitter from "../images/ui/twitter.png";
 import opensea from "../images/ui/opensea.png";
 import game from "../images/ui/game.png";
 import mintButton from "../images/ui/mint.png";
+import wKey from "../images/ui/wKey.png";
+import aKey from "../images/ui/aKey.png";
+import sKey from "../images/ui/sKey.png";
+import dKey from "../images/ui/dKey.png";
+
 import ConnectWalletButton from "./ConnectWalletButton";
 import { pageState } from "../atoms/pageState";
 
@@ -13,7 +18,7 @@ const Layout = ({ children }) => {
   const [page, setPage] = useRecoilState(pageState);
   return (
     <div
-      className="relative w-full h-auto min-h-screen py-8 space-y-4 bg-[url('./images/background.png')] bg-no-repeat bg-[center_top] bg-cover flex flex-col items-center justify-evenly md:justify-start"
+      className="relative w-full h-auto min-h-screen px-4 py-8 space-y-4 bg-[url('./images/background.png')] bg-no-repeat bg-[center_top] bg-cover flex flex-col items-center justify-center md:justify-start"
       style={{ imageRendering: "pixelated" }}
     >
       <header className="w-[80%] flex items-center justify-center">
@@ -58,6 +63,66 @@ const Layout = ({ children }) => {
             />
           </button>
         )}
+      </div>
+      <div className="flex flex-col items-center justify-center absolute bottom-7 right-1/2 translate-x-1/2 lg:right-20 lg:bottom-[300px] lg:translate-x-0">
+        <button
+          onPointerDown={() => {
+            document.dispatchEvent(
+              new KeyboardEvent("keydown", { code: "KeyW" })
+            );
+          }}
+          onPointerUp={() => {
+            document.dispatchEvent(
+              new KeyboardEvent("keyup", { code: "KeyW" })
+            );
+          }}
+        >
+          <img src={wKey} alt="" className="w-[55px] md:w-[65px]" />
+        </button>
+        <div className="flex items-center justify-center">
+          <button
+            onPointerDown={() => {
+              document.dispatchEvent(
+                new KeyboardEvent("keydown", { code: "KeyA" })
+              );
+            }}
+            onPointerUp={() => {
+              document.dispatchEvent(
+                new KeyboardEvent("keyup", { code: "KeyA" })
+              );
+            }}
+          >
+            <img src={aKey} alt="" className="w-[55px] md:w-[65px]" />
+          </button>
+          <button
+            onPointerDown={() => {
+              document.dispatchEvent(
+                new KeyboardEvent("keydown", { code: "KeyS" })
+              );
+            }}
+            onPointerUp={() => {
+              document.dispatchEvent(
+                new KeyboardEvent("keyup", { code: "KeyS" })
+              );
+            }}
+          >
+            <img src={sKey} alt="" className="w-[55px] md:w-[65px]" />
+          </button>
+          <button
+            onPointerDown={() => {
+              document.dispatchEvent(
+                new KeyboardEvent("keydown", { code: "KeyD" })
+              );
+            }}
+            onPointerUp={() => {
+              document.dispatchEvent(
+                new KeyboardEvent("keyup", { code: "KeyD" })
+              );
+            }}
+          >
+            <img src={dKey} alt="" className="w-[55px] md:w-[65px]" />
+          </button>
+        </div>
       </div>
     </div>
   );

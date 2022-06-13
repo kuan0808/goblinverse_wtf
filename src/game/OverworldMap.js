@@ -238,10 +238,10 @@ export const overworldMaps = {
           y: utils.withGrid(28),
           src: killer,
           directionInputs: {
-            ArrowUp: "up",
-            ArrowDown: "down",
-            ArrowLeft: "left",
-            ArrowRight: "right",
+            KeyI: "up",
+            KeyK: "down",
+            KeyJ: "left",
+            KeyL: "right",
           },
           actionInputs: {
             attack: "Slash",
