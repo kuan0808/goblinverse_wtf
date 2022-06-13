@@ -2,6 +2,7 @@ import GameObject from "./GameObject";
 import DirectionInput from "./DirectionInput";
 import KeyPressListener from "./KeyPressListener";
 import utils from "./utils";
+import { astar } from "./Astar";
 
 export default class Person extends GameObject {
   constructor(config) {

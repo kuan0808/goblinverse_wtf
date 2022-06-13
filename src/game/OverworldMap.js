@@ -16,6 +16,7 @@ import GameObject from "./GameObject";
 import Person from "./Person";
 import utils from "./utils";
 import OverworldEvent from "./OverworldEvent";
+import Graph from "./Astar";
 
 export default class OverworldMap {
   constructor(config) {
