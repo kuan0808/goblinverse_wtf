@@ -94,6 +94,9 @@ export default class Overworld {
   init() {
     this.startMap(overworldMaps.Maze);
 
+    // reset the game status
+    this.gameStatus = "playing";
+
     this.bindActionInput();
     this.bindGoblinPositionCheck();
 

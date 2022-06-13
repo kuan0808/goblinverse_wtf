@@ -55,6 +55,7 @@ export default class Sprite {
       "attack-up": [[1, 4]],
       "attack-left": [[3, 4]],
       lieDown: [[0, 4]],
+      hurt: [[1, 4]],
     };
     this.currentAnimation = "idle-down";
     this.currentAnimationFrame = 0;

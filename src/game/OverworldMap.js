@@ -24,7 +24,15 @@ export default class OverworldMap {
     this.rows = config.rows;
     this.overworld = null;
     this.goal = config.goal;
-    this.gameObjects = config.gameObjects;
+    this.gameObjects = config.gameObjects.reduce((acc, object) => {
+      if (object.type === "Person") {
+        acc[object.name] = new Person(object.config);
+      }
+      if (object.type === "GameObject") {
+        acc[object.name] = new GameObject(object.config);
+      }
+      return acc;
+    }, {});
     this.cutsceneSpaces = config.cutsceneSpaces || {};
     this.walls =
       config.walls.length > 0
@@ -206,130 +214,165 @@ export const overworldMaps = {
     rows: 30,
     imageSrcs: [mazeLower, "gameObjects", mazeMiddle, mazeUpper],
     goal: { x: [25, 26, 27], y: [1] },
-    gameObjects: {
-      goblin: new Person({
-        isPlayerControlled: true,
-        x: utils.withGrid(4),
-        y: utils.withGrid(26),
-        directionInputs: {
-          KeyW: "up",
-          KeyS: "down",
-          KeyA: "left",
-          KeyD: "right",
-        },
-      }),
-      killer: new Person({
-        x: utils.withGrid(12),
-        y: utils.withGrid(28),
-        src: killer,
-        directionInputs: {
-          ArrowUp: "up",
-          ArrowDown: "down",
-          ArrowLeft: "left",
-          ArrowRight: "right",
-        },
-        actionInputs: {
-          attack: "Slash",
-        },
-        behaviorLoop: [
-          { type: "stand", direction: "left", time: 800 },
-          { type: "stand", direction: "up", time: 800 },
-          { type: "stand", direction: "right", time: 1200 },
-          { type: "stand", direction: "up", time: 300 },
-        ],
-        talking: [
-          {
-            events: [
-              {
-                type: "textMessage",
-                text: "I'm busy...",
-                faceGoblin: "killer",
-              },
-              { type: "textMessage", text: "Go away!" },
-              { who: "goblin", type: "walk", direction: "up" },
-            ],
+    gameObjects: [
+      {
+        type: "Person",
+        name: "goblin",
+        config: {
+          isPlayerControlled: true,
+          x: utils.withGrid(4),
+          y: utils.withGrid(26),
+          directionInputs: {
+            KeyW: "up",
+            KeyS: "down",
+            KeyA: "left",
+            KeyD: "right",
           },
-        ],
-      }),
-      skeleton: new GameObject({
-        x: utils.withGrid(26),
-        y: utils.withGrid(27),
-        src: skeleton,
-      }),
-      stone1: new GameObject({
-        x: utils.withGrid(16),
-        y: utils.withGrid(19),
-        src: stone,
-      }),
-      stone2: new GameObject({
-        x: utils.withGrid(2),
-        y: utils.withGrid(19),
-        src: stone,
-      }),
-      popo1: new GameObject({
-        x: utils.withGrid(1),
-        y: utils.withGrid(21),
-        src: popo,
-        consumeable: true,
-        effect: (consumer) => {
-          consumer.buff["speed"] = {
-            duration: 1000,
-            value: 2,
-          };
         },
-      }),
-      popo2: new GameObject({
-        x: utils.withGrid(13),
-        y: utils.withGrid(7),
-        src: popo,
-        consumeable: true,
-        effect: (consumer) => {
-          consumer.buff["speed"] = {
-            duration: 1000,
-            value: 2,
-          };
+      },
+      {
+        type: "Person",
+        name: "killer",
+        config: {
+          x: utils.withGrid(12),
+          y: utils.withGrid(28),
+          src: killer,
+          directionInputs: {
+            ArrowUp: "up",
+            ArrowDown: "down",
+            ArrowLeft: "left",
+            ArrowRight: "right",
+          },
+          actionInputs: {
+            attack: "Slash",
+          },
+          behaviorLoop: [
+            { type: "stand", direction: "left", time: 800 },
+            { type: "stand", direction: "up", time: 800 },
+            { type: "stand", direction: "right", time: 1200 },
+            { type: "stand", direction: "up", time: 300 },
+          ],
         },
-      }),
-      goblinSkeleton1: new GameObject({
-        x: utils.withGrid(2),
-        y: utils.withGrid(2),
-        src: goblinSkeleton,
-      }),
-      goblinSkeleton2: new GameObject({
-        x: utils.withGrid(22),
-        y: utils.withGrid(15),
-        src: goblinSkeleton,
-      }),
-      hamburger1: new GameObject({
-        x: utils.withGrid(10),
-        y: utils.withGrid(11),
-        src: hamburger1,
-        consumeable: true,
-        effect: (consumer) => {
-          if (consumer.hp < 3) {
+      },
+      {
+        type: "GameObject",
+        name: "skeleton",
+        config: {
+          x: utils.withGrid(26),
+          y: utils.withGrid(27),
+          src: skeleton,
+        },
+      },
+      {
+        type: "GameObject",
+        name: "stone1",
+        config: {
+          x: utils.withGrid(16),
+          y: utils.withGrid(19),
+          src: stone,
+        },
+      },
+      {
+        type: "GameObject",
+        name: "stone2",
+        config: {
+          x: utils.withGrid(2),
+          y: utils.withGrid(19),
+          src: stone,
+        },
+      },
+      {
+        type: "GameObject",
+        name: "popo1",
+        config: {
+          x: utils.withGrid(1),
+          y: utils.withGrid(21),
+          src: popo,
+          consumeable: true,
+          effect: (consumer) => {
+            consumer.buff["speed"] = {
+              duration: 200,
+              value: 2,
+            };
+          },
+        },
+      },
+      {
+        type: "GameObject",
+        name: "popo2",
+        config: {
+          x: utils.withGrid(13),
+          y: utils.withGrid(7),
+          src: popo,
+          consumeable: true,
+          effect: (consumer) => {
+            consumer.buff["speed"] = {
+              duration: 200,
+              value: 2,
+            };
+          },
+        },
+      },
+      {
+        type: "GameObject",
+        name: "goblinSkeleton1",
+        config: {
+          x: utils.withGrid(2),
+          y: utils.withGrid(2),
+          src: goblinSkeleton,
+        },
+      },
+      {
+        type: "GameObject",
+        name: "goblinSkeleton2",
+        config: {
+          x: utils.withGrid(22),
+          y: utils.withGrid(15),
+          src: goblinSkeleton,
+        },
+      },
+      {
+        type: "GameObject",
+        name: "hamburger1",
+        config: {
+          x: utils.withGrid(10),
+          y: utils.withGrid(11),
+          src: hamburger1,
+          consumeable: true,
+          effect: (consumer) => {
+            if (consumer.hp < 3) {
+              consumer.hp += 1;
+            }
+          },
+        },
+      },
+      {
+        type: "GameObject",
+        name: "hamburger2",
+        config: {
+          x: utils.withGrid(26),
+          y: utils.withGrid(11),
+          src: hamburger2,
+          consumeable: true,
+          effect: (consumer) => {
             consumer.hp += 1;
-          }
+          },
         },
-      }),
-      hamburger2: new GameObject({
-        x: utils.withGrid(26),
-        y: utils.withGrid(11),
-        src: hamburger2,
-        consumeable: true,
-        effect: (consumer) => {
-          consumer.hp += 1;
+      },
+      {
+        type: "Person",
+        name: "cat",
+        config: {
+          x: utils.withGrid(2),
+          y: utils.withGrid(15),
+          src: cat,
+          consumeable: true,
+          effect: (consumer) => {
+            consumer.equip.push("cat");
+          },
         },
-      }),
-      cat: new Person({
-        x: utils.withGrid(2),
-        y: utils.withGrid(15),
-        src: cat,
-        consumeable: true,
-        effect: (consumer) => {
-          consumer.equip.push("cat");
-        },
-      }),
-    },
+      },
+    ],
     walls: [
       // obstacles
       [26, 27],
@@ -696,7 +739,7 @@ export const overworldMaps = {
       [3, 16],
     ],
     cutsceneSpaces: {
-      [utils.asGridCoord(11, 24)]: [
+      [utils.asGridCoord(9, 25)]: [
         {
           events: [
             { type: "textMessage", src: runText },
@@ -708,7 +751,7 @@ export const overworldMaps = {
           ],
         },
       ],
-      [utils.asGridCoord(10, 24)]: [
+      [utils.asGridCoord(9, 26)]: [
         {
           events: [
             { type: "textMessage", src: runText },
@@ -720,7 +763,7 @@ export const overworldMaps = {
           ],
         },
       ],
-      [utils.asGridCoord(12, 24)]: [
+      [utils.asGridCoord(9, 27)]: [
         {
           events: [
             { type: "textMessage", src: runText },

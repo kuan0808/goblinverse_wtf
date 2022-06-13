@@ -73,7 +73,7 @@ export default class Person extends GameObject {
         Math.floor(this.x / 16)
       ];
       const end =
-        this.target.action === "lieDown" ||
+        this.target.action === "hurt" ||
         this.target.recoveryProgressRemaining > 0
           ? // Go back to it's original position
             this.map.graph.grid[Math.floor(Math.random() * 30)][
@@ -103,21 +103,18 @@ export default class Person extends GameObject {
         }
       }
     }
-
+    // Update charactor's buff status
     if (!utils.isEmpty(this.buff)) {
       Object.entries(this.buff).forEach(([type, detail]) => {
         if (detail.duration > 0) {
           !detail.started &&
             (this.originalStatus[type] =
               this.originalStatus[type] || this[type]);
-          // !detail.started && console.log(this.buff);
           !detail.started && (this[type] *= detail.value);
           this.buff[type].started = true;
           this.buff[type].duration -= 1;
         }
       });
-      // console.log(this.buff);
-      // console.log(this.buff);
     }
 
     if (this.recoveryProgressRemaining > 0) {
@@ -127,15 +124,10 @@ export default class Person extends GameObject {
       this.movingProgressRemaining = 0;
       this.actionProgressRemaining -= 1;
 
-      // Get up after player press to walk
-      if (this.action === "lieDown" && !this.heldDirections[0] && this.hp > 0) {
-        this.actionProgressRemaining += 1;
-      }
-
       if (this.actionProgressRemaining === 0) {
         // immortality for a period of time after getting up
-        if (this.action === "lieDown") {
-          this.recoveryProgressRemaining = 300;
+        if (this.action === "hurt") {
+          this.recoveryProgressRemaining = 60;
         }
         this.action = null;
       }
@@ -153,6 +145,8 @@ export default class Person extends GameObject {
         if (this.movingProgressRemaining > 0) {
           this.updatePosition();
         } else {
+          // Check buff status if the character is not moving, prevent
+          // the character from breaking the grid rule
           if (!utils.isEmpty(this.buff)) {
             Object.entries(this.buff).forEach(([type, detail]) => {
               if (detail.duration <= 0) {
@@ -162,7 +156,6 @@ export default class Person extends GameObject {
               }
             });
           }
-
           if (
             !this.map.isCutscenePlaying &&
             (this.isPlayerControlled || this.isAIControlled) &&
@@ -192,17 +185,29 @@ export default class Person extends GameObject {
       );
       if (
         player &&
-        !(player.obj.action === "lieDown") &&
+        !(player.obj.action === "hurt") &&
         !player.obj.recoveryProgressRemaining
       ) {
-        player.obj.handleAction("lieDown");
-        player.obj.hp -= 1;
+        player.obj.handleAction("hurt");
+
+        if (player.obj.hp === 1) {
+          player.obj.handleAction("lieDown");
+        }
+        // player.obj.hp -= 1;
       }
-      this.actionProgressRemaining = 30;
+      // set the attack animation lasting time
+      this.actionProgressRemaining = 60;
+      // face the target while attacking
       this.direction = player?.direction || this.direction;
     }
-    if (behavior.type === "lieDown") {
+    if (behavior.type === "hurt") {
+      this.hp -= 1;
+      // TODO: make the character speed up when hurt
+
       this.actionProgressRemaining = 8;
+    }
+    if (behavior.type === "lieDown") {
+      this.actionProgressRemaining = 20;
     }
     if (behavior.type === "walk") {
       //Stop here if space is not free
@@ -252,12 +257,10 @@ export default class Person extends GameObject {
     if (this.actionProgressRemaining > 0) {
       switch (this.action) {
         case "attack":
-          this.sprite.setAnimation("attack-" + this.direction);
-          break;
-        case "lieDown":
-          this.sprite.setAnimation("lieDown");
+          this.sprite.setAnimation(this.action + "-" + this.direction);
           break;
         default:
+          this.sprite.setAnimation(this.action);
           break;
       }
       return;

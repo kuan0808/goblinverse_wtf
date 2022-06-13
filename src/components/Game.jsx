@@ -24,9 +24,10 @@ const Game = () => {
   const [status, setStatus] = useRecoilState(gameStatusState);
   const [health, setHealth] = useRecoilState(playerHealthState);
   const [easterEgg, setEasterEgg] = useRecoilState(playerEastereggState);
-  const [audio, setAudio] = useState(null);
+  // const [audio, setAudio] = useState(null);
 
   const gameContainerRef = useRef(null);
+  const audioRef = useRef(null);
 
   useAnimationFrame(() => {
     if (!game) return;
@@ -39,35 +40,31 @@ const Game = () => {
   }, [game?.gameStatus]);
 
   useEffect(() => {
-    if (audio) audio.pause();
+    if (!audioRef.current) return;
     if (status === "playing") {
-      setAudio(new Audio(bgm));
+      audioRef.current.loop = true;
+      audioRef.current.src = bgm;
     } else if (status === "victory") {
-      setAudio(new Audio(weee));
+      audioRef.current.loop = false;
+      audioRef.current.src = weee;
     } else if (status === "lose") {
-      setAudio(new Audio(dead));
+      audioRef.current.loop = false;
+      audioRef.current.src = dead;
     }
+    status && audioRef.current.play();
     return () => {
-      if (audio) audio.pause();
+      audioRef.current && (audioRef.current.src = "");
     };
   }, [status]);
-  if (audio) {
-    if (
-      audio.src ===
-      audio.baseURI.substring(0, audio.baseURI.length - 1) + bgm
-    ) {
-      console.log("triggered");
-      audio.loop = true;
-    }
-    audio.play();
-  }
+
   const startNewGame = () => {
-    let overworld = new Overworld({ element: gameContainerRef.current });
-    overworld.init();
-    setGame(overworld);
-  };
-  const replayGame = () => {
-    window.location.reload(false);
+    if (!game) {
+      let overworld = new Overworld({ element: gameContainerRef.current });
+      overworld.init();
+      setGame(overworld);
+    } else {
+      game.init();
+    }
   };
   return (
     <main
@@ -115,7 +112,7 @@ const Game = () => {
       )}
       <button
         id="game-button"
-        onClick={!game ? startNewGame : replayGame}
+        onClick={startNewGame}
         className={clsx(
           "absolute left-1/2 -translate-x-1/2 z-[3]",
           !game && "top-1/2 -translate-y-1/2",
@@ -123,7 +120,7 @@ const Game = () => {
         )}
       >
         {!game && <img src={startButton} alt="" className="w-[200px]" />}
-        {status === "lose" && (
+        {(status === "lose" || status === "victory") && (
           <img
             src={restartButton}
             alt=""
@@ -131,6 +128,7 @@ const Game = () => {
           />
         )}
       </button>
+      <audio ref={audioRef}></audio>
     </main>
   );
 };

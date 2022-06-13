@@ -9,7 +9,7 @@ export default class DirectionInput {
       const dir = this.inputs[e.code];
       if (dir && this.who.heldDirections.indexOf(dir) === -1) {
         this.who.heldDirections.unshift(dir);
-        this.who.isPlayerControlled = true;
+        this.who.isAIControlled && (this.who.isPlayerControlled = true);
       }
     });
     document.addEventListener("keyup", (e) => {
