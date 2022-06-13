@@ -39,7 +39,7 @@ const Game = () => {
   }, [game?.gameStatus]);
 
   useEffect(() => {
-    // if (audio) audio.pause();
+    if (audio) audio.pause();
     if (status === "playing") {
       setAudio(new Audio(bgm));
     } else if (status === "victory") {
@@ -53,6 +53,7 @@ const Game = () => {
   }, [status]);
   if (audio) {
     console.log(audio.baseURI + bgm);
+    console.log(audio.src);
     if (audio.src === audio.baseURI + bgm) {
       console.log("triggered");
       audio.loop = true;
