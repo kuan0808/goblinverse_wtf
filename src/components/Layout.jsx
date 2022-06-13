@@ -33,7 +33,11 @@ const Layout = ({ children }) => {
             className="w-[60px] h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px]"
           />
         </a>
-        <a href="" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://twitter.com/Goblinverse_wtf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img
             src={twitter}
             alt=""
@@ -41,14 +45,14 @@ const Layout = ({ children }) => {
           />
         </a>
       </div>
-      <div className="fixed top-[10px] right-[10px] md:top-5 md:right-5 flex flex-col items-end justify-start">
+      <div className="fixed top-[10px] right-[10px] md:top-2 md:right-3 lg:top-6 lg:right-10 flex flex-col items-end justify-start">
         <ConnectWalletButton />
         {page === "mint" && (
           <button>
             <img
               src={game}
               alt=""
-              className="w-[120px] md:w-[150px]"
+              className="w-[130px] md:w-[150px]"
               onClick={() => setPage("game")}
             />
           </button>
