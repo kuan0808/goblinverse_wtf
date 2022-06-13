@@ -8,17 +8,20 @@ import one from "../images/ui/one.png";
 import two from "../images/ui/two.png";
 import three from "../images/ui/three.png";
 import catIcon from "../images/cat.png";
+import winToMint from "../images/ui/winToMint.png";
+import soldOut from "../images/ui/soldOut.png";
+
 import {
-  gameStatusState,
-  playerHealthState,
+  gameStatusHistoryState,
   playerEastereggState,
 } from "../atoms/gameState";
 
 const Mint = () => {
-  const status = useRecoilValue(gameStatusState);
-  const health = useRecoilValue(playerHealthState);
+  const statusHistory = useRecoilValue(gameStatusHistoryState);
   const easteregg = useRecoilValue(playerEastereggState);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
+
+  const hasPassed = statusHistory.includes("victory");
 
   const handleAdd = () => setCount((prev) => prev + 1);
   const handleSubstract = () => setCount((prev) => prev - 1);
@@ -31,9 +34,9 @@ const Mint = () => {
       </button>
       <div className="flex items-center justify-center gap-10">
         <button
-          // className={clsx(count === 0 && "opacity-60")}
-          disabled={count === 0}
-          onClick={count > 0 ? handleSubstract : undefined}
+          disabled={count === 1 || !hasPassed}
+          className="disabled:cursor-not-allowed"
+          onClick={(hasPassed && count) > 1 ? handleSubstract : undefined}
         >
           <img src={minus} alt="" className="w-[80px]" />
         </button>
@@ -43,16 +46,17 @@ const Mint = () => {
               <img src={catIcon} alt="" className="w-[80px]" />
             </div>
           )}
-          {count === 1 && <img src={one} alt="" className="w-[80px]" />}
+          {!hasPassed && <img src={winToMint} alt="" className="w-[120px]" />}
+          {hasPassed && count === 1 && (
+            <img src={one} alt="" className="w-[80px]" />
+          )}
           {count === 2 && <img src={two} alt="" className="w-[80px]" />}
           {count === 3 && <img src={three} alt="" className="w-[80px]" />}
         </div>
         <button
-          // className={clsx(health <= count && "opacity-60")}
-          disabled={health <= count}
-          onClick={
-            status === "victory" && health > count ? handleAdd : undefined
-          }
+          className="disabled:cursor-not-allowed"
+          disabled={count === 3 || !hasPassed}
+          onClick={hasPassed && count < 3 ? handleAdd : undefined}
         >
           <img src={plus} alt="" className="w-[80px]" />
         </button>

@@ -17,17 +17,24 @@ import {
   gameStatusState,
   playerEastereggState,
   playerHealthState,
+  gameStatusHistoryState,
 } from "../atoms/gameState";
 
 const Game = () => {
   const [game, setGame] = useState(null);
   const [status, setStatus] = useRecoilState(gameStatusState);
+  const [history, setHistory] = useRecoilState(gameStatusHistoryState);
   const [health, setHealth] = useRecoilState(playerHealthState);
   const [easterEgg, setEasterEgg] = useRecoilState(playerEastereggState);
-  // const [audio, setAudio] = useState(null);
 
   const gameContainerRef = useRef(null);
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      setStatus(null);
+    };
+  }, []);
 
   useAnimationFrame(() => {
     if (!game) return;
@@ -47,9 +54,11 @@ const Game = () => {
     } else if (status === "victory") {
       audioRef.current.loop = false;
       audioRef.current.src = weee;
+      setHistory((prev) => [...prev, status]);
     } else if (status === "lose") {
       audioRef.current.loop = false;
       audioRef.current.src = dead;
+      setHistory((prev) => [...prev, status]);
     }
     status && audioRef.current.play();
     return () => {
