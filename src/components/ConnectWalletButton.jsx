@@ -33,7 +33,7 @@ const ConnectWalletButton = () => {
                     <img
                       src={connectButton}
                       alt=""
-                      className="w-[130px] md:w-[150px]"
+                      className="w-[100px] md:w-[130px] lg:w-[150px]"
                     />
                   </button>
                 );
@@ -43,7 +43,7 @@ const ConnectWalletButton = () => {
                   <button
                     onClick={openChainModal}
                     type="button"
-                    className="text-xl bg-[url('./images/ui/emptyButton.png')] bg-no-repeat bg-[length:100%_100%] w-[130px] md:w-[150px] h-[60px] md:h-[80px]"
+                    className="text-lg md:text-xl bg-[url('./images/ui/emptyButton.png')] bg-no-repeat bg-[length:100%_100%] w-[100px] md:w-[130px] lg:w-[150px] h-[60px] md:h-[80px]"
                   >
                     Wrong network
                   </button>
