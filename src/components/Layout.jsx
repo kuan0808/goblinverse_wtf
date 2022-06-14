@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
   const [page, setPage] = useRecoilState(pageState);
   return (
     <div
-      className="select-none relative w-full h-auto min-h-screen px-4 py-8 pt-10 space-y-4 bg-[url('./images/background.png')] bg-no-repeat bg-[center_top] bg-cover flex flex-col items-center justify-center md:justify-start"
+      className="select-none relative w-full h-auto min-h-screen px-4 py-4 space-y-4 bg-[url('./images/background.png')] bg-no-repeat bg-[center_top] bg-cover flex flex-col items-center justify-center md:justify-start"
       style={{ imageRendering: "pixelated" }}
     >
       <header className="w-[80%] flex items-center justify-center">
