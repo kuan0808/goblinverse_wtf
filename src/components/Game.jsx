@@ -150,7 +150,7 @@ const Game = () => {
         </button>
         <audio ref={audioRef}></audio>
       </main>
-      <div className="z-20 flex flex-col items-center justify-center absolute bottom-7 right-7 lg:right-20 lg:bottom-[300px] lg:translate-x-0">
+      {status === "playing" && <div className="z-20 flex flex-col items-center justify-center absolute bottom-7 right-7 lg:right-20 lg:bottom-[300px] lg:translate-x-0">
         <button
           onTouchStart={() => {
             document.dispatchEvent(
@@ -224,7 +224,7 @@ const Game = () => {
               className="w-[55px] md:w-[65px] pointer-events-none"
             />
           </button>
-        </div>
+        </div>}
       </div>
     </>
   );
