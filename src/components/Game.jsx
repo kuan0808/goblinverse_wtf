@@ -152,61 +152,77 @@ const Game = () => {
       </main>
       <div className="flex flex-col items-center justify-center absolute bottom-7 right-1/2 translate-x-1/2 lg:right-20 lg:bottom-[300px] lg:translate-x-0">
         <button
-          onPointerDown={() => {
+          onTouchStart={() => {
             document.dispatchEvent(
               new KeyboardEvent("keydown", { code: "KeyW" })
             );
           }}
-          onPointerUp={() => {
+          onTouchEnd={() => {
             document.dispatchEvent(
               new KeyboardEvent("keyup", { code: "KeyW" })
             );
           }}
         >
-          <img src={wKey} alt="" className="w-[55px] md:w-[65px]" />
+          <img
+            src={wKey}
+            alt=""
+            className="w-[55px] md:w-[65px] pointer-events-none"
+          />
         </button>
         <div className="flex items-center justify-center">
           <button
-            onPointerDown={() => {
+            onTouchStart={() => {
               document.dispatchEvent(
                 new KeyboardEvent("keydown", { code: "KeyA" })
               );
             }}
-            onPointerUp={() => {
+            onTouchEnd={() => {
               document.dispatchEvent(
                 new KeyboardEvent("keyup", { code: "KeyA" })
               );
             }}
           >
-            <img src={aKey} alt="" className="w-[55px] md:w-[65px]" />
+            <img
+              src={aKey}
+              alt=""
+              className="w-[55px] md:w-[65px] pointer-events-none"
+            />
           </button>
           <button
-            onPointerDown={() => {
+            onTouchStart={() => {
               document.dispatchEvent(
                 new KeyboardEvent("keydown", { code: "KeyS" })
               );
             }}
-            onPointerUp={() => {
+            onTouchEnd={() => {
               document.dispatchEvent(
                 new KeyboardEvent("keyup", { code: "KeyS" })
               );
             }}
           >
-            <img src={sKey} alt="" className="w-[55px] md:w-[65px]" />
+            <img
+              src={sKey}
+              alt=""
+              className="w-[55px] md:w-[65px] pointer-events-none"
+            />
           </button>
           <button
-            onPointerDown={() => {
+            onTouchStart={() => {
               document.dispatchEvent(
                 new KeyboardEvent("keydown", { code: "KeyD" })
               );
             }}
-            onPointerUp={() => {
+            onTouchEnd={() => {
               document.dispatchEvent(
                 new KeyboardEvent("keyup", { code: "KeyD" })
               );
             }}
           >
-            <img src={dKey} alt="" className="w-[55px] md:w-[65px]" />
+            <img
+              src={dKey}
+              alt=""
+              className="w-[55px] md:w-[65px] pointer-events-none"
+            />
           </button>
         </div>
       </div>
