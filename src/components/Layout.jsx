@@ -21,12 +21,12 @@ const Layout = ({ children }) => {
         <img src={title} alt="" className="h-[150px] md:h-[250px]" />
       </header>
       {children}
-      <div className="md:fixed md:top-[300px] md:left-[40px] lg:left-[60px] flex md:flex-col items-center justify-start gap-4">
+      <div className="self-end md:fixed md:top-[300px] md:left-[40px] lg:left-[60px] flex md:flex-col items-center justify-start gap-4">
         <a href="" target="_blank" rel="noopener noreferrer">
           <img
             src={opensea}
             alt=""
-            className="w-[60px] h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px]"
+            className="w-[50px] md:w-[70px] lg:w-[80px]"
           />
         </a>
         <a
@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
           <img
             src={twitter}
             alt=""
-            className="w-[60px] h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px]"
+            className="w-[50px] md:w-[70px] lg:w-[80px]"
           />
         </a>
       </div>
