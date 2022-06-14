@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
       className="select-none relative w-full h-auto min-h-screen px-4 py-4 space-y-4 bg-[url('./images/background.png')] bg-no-repeat bg-[center_top] bg-cover flex flex-col items-center justify-center md:justify-start"
       style={{ imageRendering: "pixelated" }}
     >
-      <header className="w-[80%] flex items-center justify-center">
+      <header className="w-[70%] md:w-[80%] flex items-center justify-center">
         <img src={title} alt="" className="h-[150px] md:h-[250px]" />
       </header>
       {children}
