@@ -36,6 +36,7 @@ const Mint = () => {
       setCount(1);
     }
   }, []);
+
   const { activeChain } = useNetwork();
   const { data: signer } = useSigner();
   const contract = useContract({
@@ -62,7 +63,6 @@ const Mint = () => {
       toast.error("Something went wrong");
     }
   };
-
   return (
     <main className="flex flex-col items-center justify-between gap-12 mt-6">
       <button

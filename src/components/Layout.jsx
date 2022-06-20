@@ -26,7 +26,11 @@ const Layout = ({ children }) => {
       </header>
       {children}
       <div className="self-start md:fixed md:top-[300px] md:left-[40px] lg:left-[60px] flex md:flex-col items-center justify-start gap-4">
-        <a href="" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://opensea.io/collection/goblinverz-wtf"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <img
             src={opensea}
             alt=""
@@ -34,7 +38,7 @@ const Layout = ({ children }) => {
           />
         </a>
         <a
-          href={`https://etherscan.io/address/${process.env.REACT_APP_CONTRACT_ADDRESS}`}
+          href="https://twitter.com/Goblinverse_wtf"
           target="_blank"
           rel="noopener noreferrer"
         >
