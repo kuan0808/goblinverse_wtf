@@ -160,7 +160,6 @@ export default class OverworldMap {
           }
         });
       });
-      console.log(players);
       return players.length === 0 ? null : players[0];
     }
   }

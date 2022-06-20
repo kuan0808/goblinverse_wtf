@@ -201,7 +201,6 @@ export default class Person extends GameObject {
       this.hp -= 1;
       // TODO: make the character speed up when hurt
       this.hp === 0 && this.handleAction("lieDown");
-      console.log(this.action);
       this.actionProgressRemaining = 8;
     }
     if (behavior.type === "lieDown") {
