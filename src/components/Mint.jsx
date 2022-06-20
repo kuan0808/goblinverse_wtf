@@ -65,7 +65,12 @@ const Mint = () => {
   };
   return (
     <main className="flex flex-col items-center justify-between gap-12 mt-6">
-      <button
+      <img
+        src={soldOut}
+        alt=""
+        className="w-[300px] md:w-[350px] transform-center rotate-[10deg]"
+      />
+      {/* <button
         disabled={!hasPassed}
         className="disabled:cursor-not-allowed"
         onClick={handleMint}
@@ -137,7 +142,7 @@ const Mint = () => {
         >
           <img src={plus} alt="" className="w-[80px]" />
         </button>
-      </div>
+      </div> */}
     </main>
   );
 };
