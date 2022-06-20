@@ -10,14 +10,19 @@ export default class Message {
     this.element = document.createElement("div");
     this.element.classList.add(
       "absolute",
+      "top-0",
+      "left-0",
+      "w-full",
+      "h-full",
+      "flex",
+      "items-center",
+      "justify-center",
       "animate__flash",
       "animate__animated",
       "animate__repeat-5"
     );
-    this.element.style.right = "20px";
-    this.element.style.bottom = "20px";
     this.element.innerHTML = `
-        <img src="${this.src}" class="w-[250px]" />
+        <img src="${this.src}" class="w-[400px]" />
     `;
 
     //Close the text message

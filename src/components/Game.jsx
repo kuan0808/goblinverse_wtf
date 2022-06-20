@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import clsx from "clsx";
 
 import Overworld from "../game/Overworld";
@@ -23,6 +23,7 @@ import {
   playerHealthState,
   gameStatusHistoryState,
   playerEastereggHistoryState,
+  gameMutedState,
 } from "../atoms/gameState";
 
 const Game = () => {
@@ -34,6 +35,7 @@ const Game = () => {
   const [easterEggHistory, setEasterEggHistory] = useRecoilState(
     playerEastereggHistoryState
   );
+  const muted = useRecoilValue(gameMutedState);
 
   const gameContainerRef = useRef(null);
   const audioRef = useRef(null);
@@ -56,6 +58,7 @@ const Game = () => {
 
   useEffect(() => {
     if (!audioRef.current) return;
+    audioRef.current.volume = 0.5;
     if (status === "playing") {
       audioRef.current.loop = true;
       audioRef.current.src = bgm;
@@ -134,7 +137,7 @@ const Game = () => {
           id="game-button"
           onClick={startNewGame}
           className={clsx(
-            "absolute left-1/2 -translate-x-1/2 z-[3]",
+            "absolute left-1/2 -translate-x-1/2 z-[3] focus-visible:outline-none",
             !game && "top-1/2 -translate-y-1/2",
             (status === "lose" || status === "victory") && "bottom-8"
           )}
@@ -148,7 +151,7 @@ const Game = () => {
             />
           )}
         </button>
-        <audio ref={audioRef}></audio>
+        <audio ref={audioRef} muted={muted}></audio>
       </main>
       {status === "playing" && (
         <div className="z-20 flex flex-col items-center justify-center absolute bottom-7 right-7 lg:right-20 lg:bottom-[300px] lg:translate-x-0">

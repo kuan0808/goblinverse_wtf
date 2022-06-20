@@ -12,12 +12,7 @@ import { RecoilRoot } from "recoil";
 import "./index.css";
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [
-    chain.mainnet,
-    // ...(process.env.REACT_APP_ENABLE_TESTNETS === 'true'
-    //   ? [chain.goerli, chain.kovan, chain.rinkeby, chain.ropsten]
-    //   : []),
-  ],
+  [chain.mainnet],
   [
     alchemyProvider({ alchemyId: "_gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC" }),
     publicProvider(),
@@ -25,7 +20,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "Goblinverse_wtf",
+  appName: "Goblinverse.wtf",
   chains,
 });
 

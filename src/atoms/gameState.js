@@ -1,5 +1,10 @@
 import { atom } from "recoil";
 
+export const gameMutedState = atom({
+  key: "gameMutedState",
+  default: false,
+});
+
 export const gameStatusHistoryState = atom({
   key: "gameStatusHistoryState",
   default: [],

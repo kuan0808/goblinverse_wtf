@@ -2,7 +2,6 @@ import React from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import connectButton from "../images/ui/connect.png";
-import emptyButton from "../images/ui/emptyButton.png";
 
 const ConnectWalletButton = () => {
   return (
@@ -43,7 +42,7 @@ const ConnectWalletButton = () => {
                   <button
                     onClick={openChainModal}
                     type="button"
-                    className="text-lg md:text-xl bg-[url('./images/ui/emptyButton.png')] bg-no-repeat bg-[length:100%_100%] w-[100px] md:w-[130px] lg:w-[150px] h-[60px] md:h-[80px]"
+                    className="text-lg text-red-800 md:text-xl bg-[url('./images/ui/emptyButton.png')] bg-no-repeat bg-[length:100%_100%] w-[100px] md:w-[130px] lg:w-[150px] h-[60px] md:h-[80px]"
                   >
                     Wrong network
                   </button>

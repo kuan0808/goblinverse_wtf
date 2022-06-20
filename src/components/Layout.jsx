@@ -6,12 +6,16 @@ import twitter from "../images/ui/twitter.png";
 import opensea from "../images/ui/opensea.png";
 import game from "../images/ui/game.png";
 import mintButton from "../images/ui/mint.png";
+import mute from "../images/ui/mute.png";
+import unmute from "../images/ui/unmute.png";
 
 import ConnectWalletButton from "./ConnectWalletButton";
 import { pageState } from "../atoms/pageState";
+import { gameMutedState } from "../atoms/gameState";
 
 const Layout = ({ children }) => {
   const [page, setPage] = useRecoilState(pageState);
+  const [muted, setMuted] = useRecoilState(gameMutedState);
   return (
     <div
       className="select-none relative w-full h-auto min-h-screen px-4 py-4 space-y-4 bg-[url('./images/background.png')] bg-no-repeat bg-[center_top] bg-cover flex flex-col items-center justify-center md:justify-start"
@@ -30,7 +34,7 @@ const Layout = ({ children }) => {
           />
         </a>
         <a
-          href="https://twitter.com/Goblinverse_wtf"
+          href={`https://etherscan.io/address/${process.env.REACT_APP_CONTRACT_ADDRESS}`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -63,6 +67,16 @@ const Layout = ({ children }) => {
             />
           </button>
         )}
+        <button
+          onClick={() => setMuted((prev) => !prev)}
+          className="focus-visible:outline-none"
+        >
+          {muted ? (
+            <img src={unmute} alt="" className="w-[60px] md:w-[80px]" />
+          ) : (
+            <img src={mute} alt="" className="w-[60px] md:w-[80px]" />
+          )}
+        </button>
       </div>
     </div>
   );
