@@ -137,7 +137,8 @@ export default class Person extends GameObject {
       if (
         !this.map.isCutscenePlaying &&
         (this.isPlayerControlled || this.isAIControlled) &&
-        this.action
+        this.action &&
+        this.movingProgressRemaining === 0
       ) {
         this.startBehavior({
           type: this.action,
