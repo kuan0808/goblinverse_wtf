@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
           />
         </a>
         <a
-          href="https://twitter.com/Goblinverse_wtf"
+          href="https://twitter.com/Goblinverz_wtf"
           target="_blank"
           rel="noopener noreferrer"
         >
