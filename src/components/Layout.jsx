@@ -1,11 +1,13 @@
 import React from "react";
 import { useRecoilState } from "recoil";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import title from "../images/ui/title.png";
 import twitter from "../images/ui/twitter.png";
 import opensea from "../images/ui/opensea.png";
 import game from "../images/ui/game.png";
 import mintButton from "../images/ui/mint.png";
+import comics from "../images/ui/comics.png";
 import mute from "../images/ui/mute.png";
 import unmute from "../images/ui/unmute.png";
 
@@ -13,8 +15,9 @@ import ConnectWalletButton from "./ConnectWalletButton";
 import { pageState } from "../atoms/pageState";
 import { gameMutedState } from "../atoms/gameState";
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [page, setPage] = useRecoilState(pageState);
+  const { pathname } = useLocation();
   const [muted, setMuted] = useRecoilState(gameMutedState);
   return (
     <div
@@ -24,7 +27,9 @@ const Layout = ({ children }) => {
       <header className="w-[70%] md:w-[80%] flex items-center justify-center">
         <img src={title} alt="" className="h-[150px] md:h-[250px]" />
       </header>
-      {children}
+
+      <Outlet />
+
       <div className="self-start md:fixed md:top-[300px] md:left-[40px] lg:left-[60px] flex md:flex-col items-center justify-start gap-4">
         <a
           href="https://opensea.io/collection/goblinverz-wtf"
@@ -51,25 +56,23 @@ const Layout = ({ children }) => {
       </div>
       <div className="fixed z-20 top-[10px] right-[10px] md:top-2 md:right-3 lg:top-6 lg:right-10 flex flex-col items-end justify-start">
         <ConnectWalletButton />
-        {page === "mint" && (
-          <button>
+        {(pathname === "/comics" || pathname === "/") && (
+          <Link to="game">
             <img
               src={game}
               alt=""
               className="w-[100px] md:w-[130px] lg:w-[150px]"
-              onClick={() => setPage("game")}
             />
-          </button>
+          </Link>
         )}
-        {page === "game" && (
-          <button>
+        {pathname === "/game" && (
+          <Link to="comics">
             <img
-              src={mintButton}
+              src={comics}
               alt=""
               className="w-[100px] md:w-[130px] lg:w-[150px]"
-              onClick={() => setPage("mint")}
             />
-          </button>
+          </Link>
         )}
         <button
           onClick={() => setMuted((prev) => !prev)}

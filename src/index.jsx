@@ -8,6 +8,7 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { RecoilRoot } from "recoil";
+import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 
@@ -20,7 +21,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "Goblinverse.wtf",
+  appName: "Goblinverz.wtf",
   chains,
 });
 
@@ -35,7 +36,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <WagmiConfig client={wagmiClient}>
     <RainbowKitProvider chains={chains}>
       <RecoilRoot>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </RecoilRoot>
     </RainbowKitProvider>
   </WagmiConfig>
