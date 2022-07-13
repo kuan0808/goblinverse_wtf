@@ -25,7 +25,7 @@ const Layout = () => {
       style={{ imageRendering: "pixelated" }}
     >
       <header className="w-[70%] md:w-[80%] flex items-center justify-center">
-        <img src={title} alt="" className="h-[150px] md:h-[250px]" />
+        <img src={title} alt="" className="h-[150px] md:h-[200px]" />
       </header>
 
       <Outlet />
