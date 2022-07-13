@@ -74,16 +74,18 @@ const Layout = () => {
             />
           </Link>
         )}
-        <button
-          onClick={() => setMuted((prev) => !prev)}
-          className="focus-visible:outline-none"
-        >
-          {muted ? (
-            <img src={unmute} alt="" className="w-[60px] md:w-[80px]" />
-          ) : (
-            <img src={mute} alt="" className="w-[60px] md:w-[80px]" />
-          )}
-        </button>
+        {pathname === "/game" && (
+          <button
+            onClick={() => setMuted((prev) => !prev)}
+            className="focus-visible:outline-none"
+          >
+            {muted ? (
+              <img src={unmute} alt="" className="w-[60px] md:w-[80px]" />
+            ) : (
+              <img src={mute} alt="" className="w-[60px] md:w-[80px]" />
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
